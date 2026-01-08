@@ -1,18 +1,23 @@
 import { ApplicationConfig, provideExperimentalZonelessChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { providePrimeNG } from "primeng/config";
 import Aura from "@primeng/themes/aura";
 import { ConfirmationService } from 'primeng/api';
 import { provideAnimationsAsync } from "@angular/platform-browser/animations/async";
 import { routes } from './app.routes';
-import { provideHttpClient, withInterceptorsFromDi, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi, withInterceptors } from '@angular/common/http';
+import { responseInterceptor } from './core/interceptor/get-interceptor.service';
+import { setInterceptor } from './core/interceptor/set-interceptor.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideExperimentalZonelessChangeDetection(),
     provideHttpClient(withInterceptorsFromDi()),
     provideHttpClient(),
-    provideRouter(routes),
+    provideHttpClient(
+      withInterceptors([setInterceptor, responseInterceptor])  // Add functional interceptors here
+    ),
+    provideRouter(routes, withComponentInputBinding()),
     provideAnimationsAsync(),
     providePrimeNG({
       theme: {

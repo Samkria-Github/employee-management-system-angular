@@ -1,1 +1,35 @@
-<p>login works!</p>
+<div class="panel_auth">
+  <div class="auth_wrapper">
+    <figure class="auth_logo">
+      <figcaption>EMPLOYEE MANAGEMENT</figcaption>
+    </figure>
+
+    <div class="auth_box">
+      <form class="form_grid"
+      [formGroup]="loginForm"
+      (ngSubmit)="onSubmit()"
+    >
+        <div class="control_group">
+          <label for="email" class="required">Email Address</label>
+          <input id="email" 
+          class="form_field" 
+          pInputText 
+          placeholder="Enter Email Address" 
+          carvixNoLeadingSpace
+          formControlName="email"
+          autocomplete="off"
+          maxlength="50" />
+          </div>
+        <div class="control_group">
+          <label for="password" class="required">Password</label>
+          <p-password carvixNoLeadingSpace id="password" class="form_field" placeholder="Enter your password" [feedback]="false" [toggleMask]="true" formControlName="password"
+            autocomplete="off"></p-password>
+        </div>  
+
+        <div class="btn_flex">
+          <p-button type="submit" class="btn btn-primary w_100" label="SignIn" />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

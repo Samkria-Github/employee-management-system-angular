@@ -1,1 +1,436 @@
 /* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+.panel_auth {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  background: linear-gradient(0deg, rgb(0 87 155 / 50%), transparent 20%);
+  position: relative;
+  padding: 40px 15px;
+  min-height: 100vh;
+  z-index: 1;
+
+  &::before {
+    content: "";
+    inset: 0;
+    position: absolute;
+    // background-image: url(../../../../assets/images/auth_bg.svg);
+    background-color: transparent;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    opacity: 0.2;
+    z-index: -1;
+  }
+
+  .auth_wrapper {
+    margin: auto;
+    border: 1px solid rgba(#000, 0.6);
+    border-radius: 20px;
+    max-width: 480px;
+    width: 100%;
+  }
+
+  .auth_logo {
+    // height: 110px;
+    margin-bottom: 25px;
+    text-align: center;
+
+    img {
+      height: 100%;
+      filter: brightness(0) saturate(100%) invert(38%) sepia(61%)
+        saturate(1618%) hue-rotate(1deg) brightness(98%) contrast(104%);
+    }
+
+    figcaption {
+      font-size: 40px;
+      font-weight: 600;
+      text-align: center;
+      text-transform: uppercase;
+      color: #0d47a1;
+      line-height: 1;
+    }
+  }
+
+  .auth_box {
+    padding: 35px 40px 40px;
+    background-color: #fff;
+    // box-shadow: $shadow3;
+    border-radius: 30px;
+
+    h1 {
+      font-size: 25px;
+      line-height: 1.2;
+      margin: 0 0 30px;
+      text-align: center;
+      text-transform: capitalize;
+
+      &:has(+ p) {
+        margin-bottom: 5px;
+      }
+    }
+
+    p {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+  }
+
+  .form_grid {
+    .control_group {
+      margin-bottom: 18px;
+
+      &.d_flex {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    .opt_fields {
+      label {
+        text-align: center;
+      }
+
+      ::ng-deep {
+        .p-inputotp {
+          justify-content: center;
+          gap: 10px;
+
+          .p-inputotp-input {
+            aspect-ratio: 1 / 1;
+            color: rgba(#000000, 0.7) !important;
+            border: 1px solid #000;
+            background-color: transparent !important;
+            border-radius: 50% !important;
+            font-size: 30px;
+            font-weight: 500;
+            height: 100% !important;
+            max-width: 70px;
+            outline: none !important;
+            padding: 5px;
+            width: 100% !important;
+          }
+        }
+      }
+    }
+
+    .remember_box {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      cursor: pointer;
+
+      label {
+        color: grey;
+        font-size: 14px;
+        font-weight: 400;
+        cursor: pointer;
+        margin: 0;
+      }
+    }
+
+    .anchor_link {
+      color: #0d47a1;
+      font-size: 14px;
+      font-weight: 400;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .btn_flex {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .auth_bottom {
+    margin-top: 20px;
+    text-align: center;
+
+    p {
+      display: flex;
+      align-items: stretch;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      margin-bottom: 0;
+
+      .link {
+        color: grey;
+        font-weight: 500;
+        align-items: center;
+        display: inline-flex;
+        justify-content: center;
+        cursor: pointer;
+        gap: 5px;
+
+        .pi {
+          font-size: 12px;
+        }
+
+        &:hover {
+          color: #0d47a1;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+.form_grid {
+  .control_group {
+    margin-bottom: 0;
+    label {
+      display: block;
+    }
+  }
+
+  .form_field {
+    .p-password {
+      width: 100%;
+    }
+    &:is(.p-inputtext, .p-textarea, .p-select, .p-multiselect),
+    .p-inputtext {
+      height: 35px;
+      font-size: 13px;
+      width: 100%;
+    }
+
+    &.p-select {
+      padding: 5px 8px 5px 10px;
+      --p-select-dropdown-width: 15px;
+      width: 140px;
+
+      .p-select-label {
+        line-height: 22px;
+      }
+
+      .p-select-dropdown {
+        --p-icon-size: 12px;
+        margin-left: 8px;
+      }
+    }
+  }
+}
+.content {
+  padding-top: 80px;
+}
+.page_card {
+  background: #fff;
+  border-radius: 5px;
+
+  padding: 20px;
+}
+.p-datatable {
+  .p-datatable-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0 0 15px;
+  }
+
+  .form_grid {
+    display: flex;
+    gap: 10px;
+
+    .form_field {
+      &:is(.p-inputtext, .p-textarea, .p-select, .p-multiselect),
+      .p-inputtext {
+        height: 35px;
+        font-size: 13px;
+      }
+
+      &.p-select {
+        padding: 5px 8px 5px 10px;
+        --p-select-dropdown-width: 15px;
+        width: 150px;
+
+        .p-select-label {
+          line-height: 22px;
+        }
+
+        .p-select-dropdown {
+          --p-icon-size: 12px;
+          margin-left: 8px;
+        }
+      }
+    }
+  }
+
+  :is(.p-datatable-thead > tr > th, .p-datatable-tbody > tr > td) {
+    border: none;
+    font-size: 13px;
+    letter-spacing: 0;
+    white-space: normal;
+    border-bottom: 1px solid #ededed;
+
+    &.text_center {
+      text-align: center;
+    }
+  }
+
+  .p-datatable-thead {
+    > tr {
+      > th {
+        line-height: 1.2;
+        font-weight: 600;
+        color: #000;
+        background-color: #fff;
+        text-transform: capitalize;
+        white-space: nowrap;
+        padding: 15px;
+      }
+    }
+  }
+
+  .p-datatable-tbody {
+    > tr {
+      > td {
+        color: #000;
+        font-weight: 400;
+        line-height: 1.4;
+        padding: 10px 15px;
+        white-space: nowrap;
+
+        p {
+          color: #000;
+          font-size: 13px;
+          font-weight: 400;
+          line-height: 1.4;
+        }
+
+        .text_link {
+          font-size: 13px;
+          color: #0D47A1;
+          font-weight: 700;
+          display: inline-flex;
+          white-space: nowrap;
+          align-items: center;
+          cursor: pointer;
+          gap: 5px;
+
+          .pi {
+            font-size: 13px;
+          }
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+
+        .max_content {
+          max-width: 400px;
+        }
+
+        p-toggleswitch {
+          vertical-align: middle;
+          display: inline-flex;
+        }
+      }
+    }
+  }
+
+  .user_block {
+    vertical-align: middle;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    figure {
+      height: 30px;
+      min-width: 30px;
+      width: 30px;
+      border-radius: 50%;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      &.no_radius {
+        border-radius: 5px;
+      }
+    }
+
+    p {
+      font-size: 13px;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+
+      b {
+        color: #464e5f;
+        font-weight: 500;
+        display: block;
+        white-space: nowrap;
+
+        &:not(:last-child) {
+          margin-bottom: 1px;
+        }
+      }
+    }
+
+    &.click_action {
+      cursor: pointer;
+
+   
+
+      &:hover {
+        p {
+          b {
+            color: #0D47A1;
+          }
+        }
+      }
+    }
+  }
+
+ 
+
+  .action_btn {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 5px;
+
+    .p-button-icon-only {
+      color: #000;
+      background-color: transparent;
+      border: none !important;
+      --p-icon-size: 14px;
+
+      &.p-button-rounded {
+        --p-button-icon-only-width: 30px;
+        border-radius: 5px;
+        background-color: #0D47A1;
+        color: #fff;
+
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+    }
+
+    p-button
+      .p-button.p-button-sm:not(
+        .p-button-link,
+        .p-button-text,
+        .p-button-icon-only
+      ) {
+      font-size: 13px;
+      min-height: 30px;
+      padding: 2px 10px;
+      min-width: 1px;
+      gap: 4px;
+    }
+  }
+
+  .p-table-expandedrow {
+    padding: 20px !important;
+  }
+}

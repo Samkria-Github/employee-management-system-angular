@@ -1,4 +1,6 @@
 import { Routes } from '@angular/router';
+import { AuthGuard } from './core/guards/auth.guard';
+import { MainComponent } from './layout/main/main.component';
 
 export const routes: Routes = [
       {
@@ -13,8 +15,9 @@ export const routes: Routes = [
   },
   {
     path: "",
-    //  canActivate: [AuthGuard],
-    loadChildren: () =>
-      import("./pages/afterAuthentication/afterAuth-route").then((m) => m.routes),
+    canActivate: [AuthGuard],
+    data: { authRequired: true },
+    component: MainComponent,
+    loadChildren: () => import("./pages/afterAuthentication/afterAuth-route").then((m) => m.routes)
   }
 ];

@@ -1,0 +1,119 @@
+
+::ng-deep {
+  .panel_header {
+    top: 0;
+    right: 0;
+    left: auto;
+    position: fixed;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    background-color: orange;
+    padding: 0 10px;
+    height: 60px;
+    z-index: 1000;
+    gap: 20px;
+
+    .lt {
+      display: inline-flex;
+      align-items: center;
+
+      .p-button-icon-only {
+        color: #0D47A1;
+        background-color: grey;
+        border: none !important;
+        --p-icon-size: 18px;
+
+        &.p-button-rounded {
+          --p-button-icon-only-width: 35px;
+          border-radius: 5px;
+
+          &:hover {
+            color: #fff;
+            background-color: #0D47A1;
+          }
+        }
+      }
+    }
+
+    .rt {
+      display: inline-flex;
+      align-items: center;
+
+      li {
+        display: inline-flex;
+        align-items: stretch;
+        justify-content: center;
+        min-height: 50px;
+        cursor: pointer;
+        margin: 0;
+
+        &:not(:last-child) {
+          border-right: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .hd_profile {
+          padding: 0 15px;
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+
+          img {
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+            border-radius: 50%;
+            object-position: center;
+            background-color: #fff;
+            object-fit: cover;
+          }
+
+          figcaption {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 2px;
+
+            strong {
+              font-size: 14px;
+              font-weight: 500;
+              color: black;
+            }
+
+            span {
+              font-size: 11px;
+              font-weight: 300;
+              color: black;
+            }
+          }
+
+          &:hover {
+            figcaption {
+              strong {
+                color: #0D47A1;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+span.pi.pi-align-left.p-button-icon {
+  font-size: 20px;
+  color: #2668e8;
+}
+
+::ng-deep {
+  .p-popover-content {
+    min-width: 300px;
+    padding: 0 !important;
+  }
+
+  .p-popover:before {
+    display: none;
+  }
+}
+

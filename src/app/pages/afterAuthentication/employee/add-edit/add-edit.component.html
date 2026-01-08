@@ -1,0 +1,57 @@
+<div class="page_wrap">
+  <div class="page_title hd_3">
+    <h1>Add Employee</h1>
+  </div>
+    <form>
+            <div class="gap_p form_grid">
+              <div class="w_100">
+                <label class="required" for="profileImage">Profile Image</label>
+                <div class="upload_image circle">
+                   <figure>
+                  <input 
+                    type="file" 
+                    accept="image/png, image/jpeg, image/jpg, image/webp"
+                  />
+                  <figcaption>
+                    <img 
+                      src="assets/images/profile.png"
+                      alt="Icon" />
+                    <span class="edit">
+                      <i class="pi pi-pencil"></i>
+                    </span>
+                  </figcaption>
+                </figure>                 
+                </div>
+              </div>
+
+              <div class="w_33">
+              <!-- <label class="required">Name</label> -->
+              <input 
+                  class="form_field"
+                  pInputText
+                  placeholder="Enter Name"
+                  autocomplete="off"
+              />
+            </div>
+            <div class="w_33">
+              <!-- <label class="required">Email</label> -->
+              <input 
+                class="form_field"
+                pInputText
+                placeholder="Enter Email"
+              />
+            </div>
+              <div class="w_33">
+              <!-- <label class="required">Phone Number</label> -->
+              <input
+                  type="tel"
+                  pInputText
+                  class="form_control"
+                />
+              </div>  
+              <div class="btn_flex mt_30">
+                <p-button type="submit" class="btn btn-primary" label="Save" />
+              </div>
+            </div>
+          </form>
+</div>

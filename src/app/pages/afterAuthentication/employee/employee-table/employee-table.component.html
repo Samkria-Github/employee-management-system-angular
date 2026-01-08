@@ -1,0 +1,55 @@
+<div class="page_wrap">
+  <div class="page_title hd_3">
+    <h1>Manage Employees</h1>
+  </div>
+  <div class="page_card">
+    <p-table [value]="users" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
+      [showCurrentPageReport]="true" >
+      <ng-template pTemplate="caption">
+        <div class="form_grid">
+          <employee-management-search />
+        </div>
+        <div class="btn_flex ">
+          <p-button size="small" class="btn btn-primary"
+            label="Add Employee" routerLink="add-employee" />
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th scope="col">Sr. No</th>
+          <th scope="col">Employee Details</th>
+          <th scope="col">Department</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-user let-i="rowIndex">
+        <tr>
+          <td>{{ i + 1 }}</td>
+          <td>
+            <div class="user_block click_action">
+              <figure>
+                <img src="assets/images/profile.png" alt="user" width="40" class="user-img" />
+              </figure>
+              <p>
+                <b>{{ user.name }}</b>
+                <span>{{ user.email }}</span>
+                <span>{{ user.phone }}</span>
+              </p>
+            </div>
+          </td>
+          <td>
+            {{user.department}}
+          </td>
+          <td>
+            <div class="action_btn">
+              <p-button rounded="true" size="small" label="View" icon="pi pi-eye"></p-button>
+              <p-button rounded="true" size="small" label="Edit" icon="pi pi-pencil" routerLink="edit-employee"></p-button>
+              <p-button rounded="true" size="small" label="Delete" icon="pi pi-trash"></p-button>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+    <router-outlet />
+</div>
+</div>
