@@ -1,12 +1,28 @@
 <div class="panel_header">
   <div class="lt">
   </div>
+
   <ul class="rt">
     <li>
       <figure class="hd_profile">
-        <img src="assets/images/profile.png" alt="Profile"/>
-        <figcaption><strong>John Doe</strong> <span>Admin</span></figcaption>
+        <img src="assets/images/profile.png" alt="Profile" />
+        <figcaption><strong>{{ userName }}</strong> <span>{{ roleDisplay }}</span></figcaption>
       </figure>
+    </li>
+
+    <li class="theme-toggle">
+      <label for="theme-switch" class="theme-label-simple">
+        {{ isDarkMode ? 'Dark Theme' : 'Light Theme' }}
+      </label>
+      <p-toggleswitch [(ngModel)]="isDarkMode" (onChange)="toggleTheme()" inputId="theme-switch"
+        styleClass="p-button-rounded p-button-text p-button-plain" />
+    </li>
+
+
+    <li>
+      <p-button class="logout" (click)="logout()" label="Logout">
+        <img src="assets/images/logout_icon.svg" alt="logout">
+      </p-button>
     </li>
   </ul>
 </div>

@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideExperimentalZonelessChangeDetection } from '@angular/core';
+import { ApplicationConfig, ErrorHandler, provideExperimentalZonelessChangeDetection } from '@angular/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { providePrimeNG } from "primeng/config";
 import Aura from "@primeng/themes/aura";
@@ -8,23 +8,26 @@ import { routes } from './app.routes';
 import { provideHttpClient, withInterceptorsFromDi, withInterceptors } from '@angular/common/http';
 import { responseInterceptor } from './core/interceptor/get-interceptor.service';
 import { setInterceptor } from './core/interceptor/set-interceptor.service';
+import { GlobalErrorHandler } from './service/errorHandler.service';
 
 export const appConfig: ApplicationConfig = {
-  providers: [
+   providers: [
     provideExperimentalZonelessChangeDetection(),
     provideHttpClient(withInterceptorsFromDi()),
     provideHttpClient(),
     provideHttpClient(
-      withInterceptors([setInterceptor, responseInterceptor])  // Add functional interceptors here
+      withInterceptors([setInterceptor, responseInterceptor])
     ),
     provideRouter(routes, withComponentInputBinding()),
+    { provide: ErrorHandler, useClass: GlobalErrorHandler },
     provideAnimationsAsync(),
     providePrimeNG({
       theme: {
         preset: Aura,
         options: {
-          mode: 'light',
-          darkModeSelector: 'none'
+          mode: 'light',  // Start with light
+          darkModeSelector: '.p-dark-mode',  // CSS class toggle
+          cssLayer: false
         }
       }
     }),   

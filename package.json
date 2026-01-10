@@ -21,6 +21,7 @@
     "@angular/router": "^19.2.0",
     "@primeng/themes": "^18.0.2",
     "husky": "^9.1.7",
+    "ngx-ui-loader": "^19.0.0",
     "primeflex": "^3.3.1",
     "primeicons": "^7.0.0",
     "primeng": "^19.1.4",

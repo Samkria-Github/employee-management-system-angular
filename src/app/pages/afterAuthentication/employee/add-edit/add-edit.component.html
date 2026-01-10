@@ -2,7 +2,8 @@
   <div class="page_title hd_3">
     <h1>Add Employee</h1>
   </div>
-    <form>
+  <div class="page_card">
+    <form [formGroup]="addEditEmployeeForm" (ngSubmit)="onSubmit()">
             <div class="gap_p form_grid">
               <div class="w_100">
                 <label class="required" for="profileImage">Profile Image</label>
@@ -11,47 +12,90 @@
                   <input 
                     type="file" 
                     accept="image/png, image/jpeg, image/jpg, image/webp"
+                    (change)="onFileChange($event)"
                   />
                   <figcaption>
                     <img 
-                      src="assets/images/profile.png"
+                      [src]="imageSrc()"
                       alt="Icon" />
                     <span class="edit">
                       <i class="pi pi-pencil"></i>
                     </span>
                   </figcaption>
-                </figure>                 
+                </figure>   
+                @if (submitted() &&
+                  addEditEmployeeForm.get('image')?.hasError('required')) {
+                  <small class="error_msg"
+                    >{{ "Profile image"}}
+                    {{ "is Required"}}</small
+                  >
+                  }              
                 </div>
               </div>
-
-              <div class="w_33">
-              <!-- <label class="required">Name</label> -->
+              <div class="w_50">
+              <label for="name" class="required">Name</label>
               <input 
                   class="form_field"
                   pInputText
+                  formControlName="name"
                   placeholder="Enter Name"
                   autocomplete="off"
               />
+              @if (submitted() &&
+                  addEditEmployeeForm.get('name')?.hasError('required')) {
+                  <small class="error_msg"
+                    >{{ "Name"}}
+                    {{ "is Required"}}</small
+                  >
+                  }
             </div>
-            <div class="w_33">
-              <!-- <label class="required">Email</label> -->
+            <div class="w_50">
+              <label for="email" class="required">Email</label>
               <input 
                 class="form_field"
                 pInputText
+                formControlName="email"
                 placeholder="Enter Email"
               />
+              @if (submitted() &&
+                  addEditEmployeeForm.get('email')?.hasError('required')) {
+                  <small class="error_msg"
+                    >{{ "Email"}}
+                    {{ "is Required"}}</small
+                  >
+                  }
             </div>
-              <div class="w_33">
-              <!-- <label class="required">Phone Number</label> -->
-              <input
-                  type="tel"
+             <div class="w_50">
+              <label for="email" class="required">Date of Birth</label>
+              <p-calendar formControlName="dob"
+                placeholder="Enter dob"></p-calendar>
+              @if (submitted() &&
+                  addEditEmployeeForm.get('dob')?.hasError('required')) {
+                  <small class="error_msg"
+                    >{{ "Date of birth"}}
+                    {{ "is Required"}}</small
+                  >
+                  }
+            </div>
+              <div class="w_50">
+              <label for="department" class="required">Department</label>
+               <input 
+                  class="form_field"
                   pInputText
-                  class="form_control"
-                />
+                  formControlName="department"
+                  placeholder="Enter Department"
+              />
+              @if (submitted() &&
+                  addEditEmployeeForm.get('department')?.hasError('required')) {
+                  <small class="error_msg"
+                    >{{ "Department"}}
+                    {{ "is Required"}}</small
+                  >
+                  }
               </div>  
-              <div class="btn_flex mt_30">
-                <p-button type="submit" class="btn btn-primary" label="Save" />
-              </div>
+            </div>
+            <div class="btn_flex mt_30">
+              <p-button type="submit" class="btn btn-primary" label="Save"/>
             </div>
           </form>
-</div>
+</div></div>

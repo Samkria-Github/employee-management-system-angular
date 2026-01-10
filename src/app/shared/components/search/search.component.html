@@ -1,6 +1,9 @@
-<p-iconfield iconPosition="left">
-  <p-inputicon>
+<div class="search_grid form_grid">
+  <p-iconfield class="form_field">
+     <p-inputicon>
     <i class="pi pi-search"></i>
   </p-inputicon>
-  <input class="form_field" pInputText pInputText type="text" placeholder="Search..." />
-</p-iconfield>
+    <input type="text" pInputText  placeholder="Search..." 
+            [value]="searchText"  (keyup)="onKeyup($event)"/>
+  </p-iconfield>
+</div>

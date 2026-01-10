@@ -10,5 +10,5 @@ export const routes: Routes = [
     {
         path: 'manage-employee',
         loadChildren: () => import('./employee/employee-route').then(m => m.routes)
-    },
+    }   
 ];

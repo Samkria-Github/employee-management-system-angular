@@ -1,24 +1,52 @@
 <div class="page_wrap">
   <div class="page_title hd_3">
-    <h1>Manage Employees</h1>
+    <div class="lt">
+      <h1>Manage Employees</h1>
+    </div>
+    <div class="rt">
+      @if(userRole() === 'admin'){
+      <p-button
+        size="small"
+        class="btn btn-primary"
+        label="Add Employee"
+        routerLink="add-employee"
+      />
+      }
+    </div>
+  </div>
+  <div class="form_grid d_flex" style="margin-bottom: 10px">
+    <employee-management-search (searchKeyup)="search($event)" />
+    <div class="rt">      
+        <p-select [options]="department" [(ngModel)]="selectedDepartment" optionLabel="name" placeholder="All Departments" class="w-full md:w-56" (onChange)="onDepartmentChange($event)"/>          
+     </div>
   </div>
   <div class="page_card">
-    <p-table [value]="users" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
-      [showCurrentPageReport]="true" >
-      <ng-template pTemplate="caption">
-        <div class="form_grid">
-          <employee-management-search />
-        </div>
-        <div class="btn_flex ">
-          <p-button size="small" class="btn btn-primary"
-            label="Add Employee" routerLink="add-employee" />
-        </div>
-      </ng-template>
+    @if(paginatedUsers() && paginatedUsers().length) {
+    <p-table
+      [value]="paginatedUsers()"
+      [paginator]="true"
+      [rows]="pageSize()"
+      [totalRecords]="totalRecords()"
+      lazy="true"
+      [first]="0"
+      (onPage)="pageOutput($event)"
+      (onSort)="onSort($event)"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    >
       <ng-template pTemplate="header">
         <tr>
           <th scope="col">Sr. No</th>
-          <th scope="col">Employee Details</th>
-          <th scope="col">Department</th>
+          <th scope="col" pSortableColumn="name">
+            Employee Details <p-sortIcon field="name"></p-sortIcon>
+          </th>
+          <th scope="col" pSortableColumn="department">
+            Department <p-sortIcon field="department"></p-sortIcon>
+          </th>
+          <th scope="col">Date of Birth</th>
+          <th scope="col" pSortableColumn="status">
+            Status <p-sortIcon field="status"></p-sortIcon>
+          </th>
           <th scope="col">Actions</th>
         </tr>
       </ng-template>
@@ -28,7 +56,12 @@
           <td>
             <div class="user_block click_action">
               <figure>
-                <img src="assets/images/profile.png" alt="user" width="40" class="user-img" />
+                <img
+                  [src]="user.imageUrl || 'assets/images/profile.png'"
+                  alt="user"
+                  width="40"
+                  class="user-img"
+                />
               </figure>
               <p>
                 <b>{{ user.name }}</b>
@@ -38,18 +71,47 @@
             </div>
           </td>
           <td>
-            {{user.department}}
+            {{ user.department }}
+          </td>
+          <td>
+            {{ user.dob | date : 'dd/MM/yyyy' }}
+          </td>
+          <td>
+            {{ user.status ? "Active" : "In-Active" }}
           </td>
           <td>
             <div class="action_btn">
-              <p-button rounded="true" size="small" label="View" icon="pi pi-eye"></p-button>
-              <p-button rounded="true" size="small" label="Edit" icon="pi pi-pencil" routerLink="edit-employee"></p-button>
-              <p-button rounded="true" size="small" label="Delete" icon="pi pi-trash"></p-button>
+              <p-button
+                rounded="true"
+                size="small"
+                label="View"
+                icon="pi pi-eye"
+                (click)="onView(user)"
+              ></p-button>
+              @if(userRole() === 'admin'){
+                <p-button
+                  rounded="true"
+                  size="small"
+                  label="Edit"
+                  icon="pi pi-pencil"
+                  (click)="onEdit(user)"
+                ></p-button>
+                <p-button
+                  rounded="true"
+                  size="small"
+                  label="Delete"
+                  icon="pi pi-trash"
+                  (click)="onDelete(user)"
+                ></p-button>
+              }
             </div>
           </td>
         </tr>
       </ng-template>
     </p-table>
+    } @else {
+    <employee-management-no-data-found />
+    }
     <router-outlet />
-</div>
+  </div>
 </div>
