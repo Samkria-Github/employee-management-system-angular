@@ -1,6 +1,18 @@
-# EmployeeManagement
+# EmployeeManagement 🚀
+
+[![Angular](https://img.shields.io/badge/Angular-19%2B-red)](https://angular.dev/)
+[![PrimeNG](https://img.shields.io/badge/PrimeNG-19%2B-orange)](https://primeng.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Strict-blue)](https://www.typescriptlang.org/)
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.19.
+
+## 🎯 Login Credentials
+
+| **Role** | **Email** | **Password** | **Access Level** |
+|----------|-----------|--------------|------------------|
+| **👑 Admin** | `admin@yopmail.com` | `Test@123` | ✅ **Full Access** |
+| **🧑‍💼 Subadmin** | `subadmin@yopmail.com` | `Test@123` | ✅ **View Only** |
+-----
 
 ## Development server
 
@@ -58,11 +70,6 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
 
-# EmployeeManagement 🚀
-
-[![Angular](https://img.shields.io/badge/Angular-18%2B-red)](https://angular.dev/)
-[![PrimeNG](https://img.shields.io/badge/PrimeNG-17%2B-orange)](https://primeng.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-Strict-blue)](https://www.typescriptlang.org/)
 
 **Full-featured Employee Management System** with **Role-Based Access Control (RBAC)**, **Dark/Light Theme**, **Advanced Table Operations**, and **LocalStorage persistence**. Generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.19.
 
@@ -77,14 +84,6 @@ For more information on using the Angular CLI, including detailed command refere
 | **📱 Responsive** | Mobile/Tablet/Desktop optimized |
 | **💾 Offline** | LocalStorage - No backend required |
 | **⚡ Signals** | Angular 18+ reactive state management |
-
-## 🎯 Login Credentials
-
-| **Role** | **Email** | **Password** | **Access Level** |
-|----------|-----------|--------------|------------------|
-| **👑 Admin** | `admin@yopmail.com` | `Test@123` | ✅ **Full Access** |
-| **🧑‍💼 Subadmin** | `subadmin@yopmail.com` | `Test@123` | ✅ **View Only** |
-
 ---
 
 ## 🚀 Quick Start
