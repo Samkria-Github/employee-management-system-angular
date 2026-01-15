@@ -20,6 +20,7 @@ import { FormsModule } from '@angular/forms';
 import { Select } from 'primeng/select';
 import { NoDataFoundComponent } from '../../../../shared/components/no-data-found/no-data-found.component';
 import { EmployeeService } from '../../../../service/employee.service';
+import { ConfirmDialogService } from '../../../../service/confirmDailog.service';
 
 @Component({
   selector: 'employee-management-employee-table',
@@ -31,6 +32,7 @@ export class EmployeeTableComponent extends BaseClass implements OnInit {
   // Department dropdown options
   protected department: Department[] | undefined;
   protected employeeService = inject(EmployeeService);
+  protected confirmationService = inject(ConfirmDialogService);
   
   // Filter signals
   protected selectedDepartment = signal<Department | null>(null);    

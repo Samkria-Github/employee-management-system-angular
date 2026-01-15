@@ -67,8 +67,14 @@
             </div>
              <div class="w_50">
               <label for="email" class="required">Date of Birth</label>
-              <p-calendar formControlName="dob"
-                placeholder="Enter dob"></p-calendar>
+              <p-calendar 
+    [showIcon]="true"
+    [touchUI]="true"
+    dateFormat="yy-mm-dd"
+    [autoZIndex]="true"
+              formControlName="dob"
+                placeholder="Enter dob"
+                ></p-calendar>
               @if (submitted() &&
                   addEditEmployeeForm.get('dob')?.hasError('required')) {
                   <small class="error_msg"

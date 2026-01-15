@@ -14,7 +14,6 @@ export const appConfig: ApplicationConfig = {
    providers: [
     provideExperimentalZonelessChangeDetection(),
     provideHttpClient(withInterceptorsFromDi()),
-    provideHttpClient(),
     provideHttpClient(
       withInterceptors([setInterceptor, responseInterceptor])
     ),

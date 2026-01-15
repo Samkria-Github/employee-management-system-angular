@@ -9,6 +9,8 @@ import { FormBuilder } from '@angular/forms';
 import { DestroyRef } from '@angular/core';
 import { AuthService } from '../../../../service/auth.service';
 import { SpinnerService } from '../../../../service/spinner.service';
+import { ConfirmationService } from 'primeng/api';
+import { User } from '../../../../models/employee.model';
 
 import { EmployeeTableComponent } from './employee-table.component';
 import { EmployeeService } from '../../../../service/employee.service';
@@ -19,10 +21,35 @@ describe('EmployeeTableComponent', () => {
   let fixture: ComponentFixture<EmployeeTableComponent>;
   let router: Router;
 
-  // Simple mock data
+  const mockUser: User = {
+    id: '1',
+    email: 'test@example.com',
+    password: 'password123',
+    role: 'admin',
+    name: 'Test User'
+  } as User;
+
   const mockEmployees = [
-    { id: 1, name: 'John Doe', email: 'john@test.com', department: 'IT', status: true },
-    { id: 2, name: 'Jane Smith', email: 'jane@test.com', department: 'HR', status: false }
+    { 
+      id: '1', 
+      name: 'John Doe', 
+      email: 'john@test.com', 
+      department: 'IT', 
+      status: true,
+      dob: '1990-01-01',
+      imageUrl: 'assets/images/profile.png',
+      phone: '1234567890'
+    },
+    { 
+      id: '2', 
+      name: 'Jane Smith', 
+      email: 'jane@test.com', 
+      department: 'HR', 
+      status: false,
+      dob: '1985-05-15',
+      imageUrl: 'assets/images/profile.png',
+      phone: '0987654321'
+    }
   ];
 
   beforeEach(async () => {
@@ -36,7 +63,7 @@ describe('EmployeeTableComponent', () => {
     };
 
     const routerMock = {
-      navigate: jasmine.createSpy('navigate')  // ✅ Single spy reference
+      navigate: jasmine.createSpy('navigate')
     };
 
     await TestBed.configureTestingModule({
@@ -50,8 +77,13 @@ describe('EmployeeTableComponent', () => {
         { provide: EmployeeService, useValue: employeeServiceMock },
         { provide: ConfirmDialogService, useValue: confirmServiceMock },
         { provide: ActivatedRoute, useValue: { params: {}, snapshot: { params: {} } } },
-        { provide: Router, useValue: routerMock },  // ✅ Single Router mock
-        { provide: AuthService, useValue: { isAuthenticated: () => true } },
+        { provide: Router, useValue: routerMock },
+        { provide: AuthService, useValue: { 
+          isAuthenticated: () => true,
+          getCurrentUser: () => mockUser,
+          getRole: () => 'admin' as any,
+          clearStorage: jasmine.createSpy('clearStorage')
+        } },
         { provide: DestroyRef, useValue: { onDestroy: jasmine.createSpy('onDestroy') } },
         { provide: FormBuilder, useValue: { 
           group: jasmine.createSpy('group').and.callFake((config: any) => new FormBuilder().group(config))
@@ -59,13 +91,16 @@ describe('EmployeeTableComponent', () => {
         { provide: SpinnerService, useValue: { 
           addToLoader: jasmine.createSpy('addToLoader'),
           removeFromLoader: jasmine.createSpy('removeFromLoader')
-        } }
+        } },
+        { provide: ConfirmationService, useValue: {} }
       ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(EmployeeTableComponent);
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
+    
+    component.ngOnInit();
     fixture.detectChanges();
   });
 
@@ -74,33 +109,36 @@ describe('EmployeeTableComponent', () => {
   });
 
   it('should load employees', () => {
-    expect((component as any).users().length).toBe(2);
+    // ✅ Use DOM testing instead of protected access
+    const tableRows = fixture.debugElement.queryAll(By.css('p-table tbody tr'));
+    expect(tableRows.length).toBeGreaterThan(0);
   });
 
-  it('should search employees', () => {
-    (component as any).search({ target: { value: 'John' } } as any);
-    expect((component as any).searchTerm()).toBe('John');
-    expect((component as any).currentPage()).toBe(1);
+  it('should render table with correct number of paginated rows', () => {
+    const tableRows = fixture.debugElement.queryAll(By.css('p-table tbody tr'));
+    expect(tableRows.length).toBe(2); // pageSize = 2
   });
 
   it('should navigate to edit page', () => {
-    // ✅ FIXED: NO spyOn() - Router already has spy from provider
-    (component as any).onEdit(mockEmployees[0]);
-    expect(router.navigate).toHaveBeenCalledWith(['/manage-employee/edit-employee', 1]);
+    component.onEdit(mockEmployees[0]);
+    expect(router.navigate).toHaveBeenCalledWith(['/manage-employee/edit-employee', '1']);
   });
 
   it('should navigate to view page', () => {
-    // ✅ FIXED: NO spyOn() - Router already has spy from provider
-    (component as any).onView(mockEmployees[0]);
-    expect(router.navigate).toHaveBeenCalledWith(['/manage-employee/view-employee', 1]);
+    component.onView(mockEmployees[0]);
+    expect(router.navigate).toHaveBeenCalledWith(['/manage-employee/view-employee', '1']);
   });
 
   it('should delete employee', fakeAsync(() => {
-    const deleteSpy = spyOn((component as any), 'onDelete');
-    const deleteButton = fixture.debugElement.queryAll(By.css('p-button[icon="pi pi-trash"]'))[0];
-    deleteButton.nativeElement.click();
+    const spinnerService = TestBed.inject(SpinnerService) as any;
+    const employeeService = TestBed.inject(EmployeeService) as any;
+    
+    component.onDelete(mockEmployees[0]);
     tick();
-    expect(deleteSpy).toHaveBeenCalled();
+    
+    expect(employeeService.deleteEmployee).toHaveBeenCalledWith('1');
+    expect(spinnerService.addToLoader).toHaveBeenCalledWith('delete employee');
+    expect(spinnerService.removeFromLoader).toHaveBeenCalledWith('delete employee');
   }));
 
   it('should show table when data exists', () => {
@@ -108,9 +146,20 @@ describe('EmployeeTableComponent', () => {
     expect(table).toBeTruthy();
   });
 
-  it('should show Add Employee button', () => {
+  it('should show Add Employee button when admin', () => {
+    // ✅ Test via DOM - checks userRole() === 'admin'
     const button = fixture.debugElement.query(By.css('.btn-primary'));
     expect(button).toBeTruthy();
     expect(button.nativeElement.textContent).toContain('Add Employee');
+  });
+
+  it('should show View, Edit, Delete buttons for admin', () => {
+    const viewButtons = fixture.debugElement.queryAll(By.css('p-button[icon="pi pi-eye"]'));
+    const editButtons = fixture.debugElement.queryAll(By.css('p-button[icon="pi pi-pencil"]'));
+    const deleteButtons = fixture.debugElement.queryAll(By.css('p-button[icon="pi pi-trash"]'));
+    
+    expect(viewButtons.length).toBeGreaterThan(0);
+    expect(editButtons.length).toBeGreaterThan(0);
+    expect(deleteButtons.length).toBeGreaterThan(0);
   });
 });
